@@ -180,17 +180,17 @@
   <tr align="center">
     <td>
       <a href="https://github.com/himitery">
-        <span>단국대학교 소프트웨어학과 이학진</span>
+        <span>이학진</span>
       </a>
     </td>
     <td>
       <a href="https://github.com/govl6113">
-        <span>단국대학교 응용컴퓨터공학과 배지현</span>
+        <span>배지현</span>
       </a>
     </td> 
     <td>
       <a href="https://github.com/rldudtj">
-        <span>단국대학교 응용컴퓨터공학과 기영서</span>
+        <span>기영서</span>
       </a>
     </td>
   </tr>
