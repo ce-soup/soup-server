@@ -14,4 +14,6 @@ interface ParticipantFacade {
     fun isRegister(memberId: String, groupId: String): Boolean
 
     fun isParticipant(memberId: String, groupId: String): Boolean
+
+    fun firstcome(key: String)
 }

@@ -15,6 +15,7 @@ import com.github.soup.group.participant.application.service.ParticipantServiceI
 import com.github.soup.member.application.service.MemberServiceImpl
 import com.github.soup.member.domain.Member
 import com.github.soup.member.infra.http.response.MemberResponse
+import com.github.soup.redis.group.RedisGroupRepository
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -24,7 +25,8 @@ class GroupFacadeImpl(
     private val groupService: GroupServiceImpl,
     private val memberService: MemberServiceImpl,
     private val fileFacade: FileFacadeImpl,
-    private val participantService: ParticipantServiceImpl
+    private val participantService: ParticipantServiceImpl,
+    private val redisGroupRepository: RedisGroupRepository,
 ) : GroupFacade {
 
     @Transactional
@@ -37,7 +39,10 @@ class GroupFacadeImpl(
         val group = groupService.save(
             request.toEntity(manager = manager, image = file)
         )
+
         participantService.save(group = group, member = manager, isAccepted = true, message = "")
+
+        redisGroupRepository.save(group.id!!, group.personnel - 1)
         return group.toResponse()
     }
 

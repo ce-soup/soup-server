@@ -5,7 +5,10 @@ import com.github.soup.group.participant.infra.http.request.AcceptParticipantReq
 import com.github.soup.group.participant.infra.http.request.CreateParticipantRequest
 import com.github.soup.group.participant.infra.http.response.ParticipantResponse
 import io.swagger.annotations.ApiOperation
+import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.ScanOptions
 import org.springframework.http.ResponseEntity
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 import springfox.documentation.annotations.ApiIgnore
@@ -14,8 +17,20 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/api/participant")
 class ParticipantController(
-    private val participantFacade: ParticipantFacadeImpl
+    private val participantFacade: ParticipantFacadeImpl,
+    private val redisTemplate: RedisTemplate<Any, Any>,
 ) {
+
+    @Scheduled(fixedDelay = 1000)
+    fun joinScheduler() {
+        val scanOptions: ScanOptions = ScanOptions.scanOptions().match("group:*").build()
+        redisTemplate.connectionFactory?.connection?.scan(scanOptions)
+            ?.forEach {
+                val key = it.toString().split(":")[1]
+                participantFacade.firstcome(key)
+            }
+    }
+
     @ApiOperation(value = "참여 신청")
     @PostMapping("/new")
     fun createParticipant(
