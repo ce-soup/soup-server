@@ -1,6 +1,6 @@
 package com.github.soup.auth.infra
 
-import com.github.soup.auth.application.auth.AuthServiceImpl
+import com.github.soup.auth.application.auth.AuthService
 import com.github.soup.auth.infra.http.request.ReIssueRequest
 import com.github.soup.auth.infra.http.request.SignInRequest
 import com.github.soup.auth.infra.http.request.SignUpRequest
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/auth")
 class AuthController(
-    private val authService: AuthServiceImpl
+    private val authService: AuthService
 ) {
     @PostMapping("/login")
     fun login(@RequestBody @Valid request: SignInRequest) = authService.login(request)

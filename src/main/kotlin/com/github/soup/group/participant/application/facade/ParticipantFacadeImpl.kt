@@ -2,17 +2,17 @@ package com.github.soup.group.participant.application.facade
 
 import com.github.soup.config.logger
 import com.github.soup.file.application.service.storage.StorageServiceImpl
-import com.github.soup.group.application.service.GroupServiceImpl
+import com.github.soup.group.application.service.GroupService
 import com.github.soup.group.domain.Group
 import com.github.soup.group.exception.NotFoundManagerAuthorityException
-import com.github.soup.group.participant.application.service.ParticipantServiceImpl
+import com.github.soup.group.participant.application.service.ParticipantService
 import com.github.soup.group.participant.exception.ExceededPersonnelException
 import com.github.soup.group.participant.infra.http.request.AcceptParticipantRequest
 import com.github.soup.group.participant.infra.http.request.CreateParticipantRequest
 import com.github.soup.group.participant.infra.http.response.ParticipantResponse
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
-import com.github.soup.redis.group.RedisGroupRepository
+import com.github.soup.redis.group.RedisGroupService
 import kr.soupio.soup.group.entities.GroupRecruitmentEnum
 import org.slf4j.Logger
 import org.springframework.stereotype.Component
@@ -21,10 +21,10 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional(readOnly = true)
 class ParticipantFacadeImpl(
-    private val participantService: ParticipantServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val groupService: GroupServiceImpl,
-    private val redisGroupRepository: RedisGroupRepository
+    private val participantService: ParticipantService,
+    private val memberService: MemberService,
+    private val groupService: GroupService,
+    private val redisGroupService: RedisGroupService
 ) : ParticipantFacade {
     private final val log: Logger = logger<StorageServiceImpl>()
 
@@ -34,7 +34,7 @@ class ParticipantFacadeImpl(
         val group: Group = groupService.getById(request.groupId)
 
         if (group.recruitment == GroupRecruitmentEnum.FIRSTCOME) {
-            redisGroupRepository.addQueue(group.id!!, memberId)
+            redisGroupService.addQueue(group.id!!, memberId)
         }
 
         if (group.recruitment == GroupRecruitmentEnum.SELECTION) {
@@ -52,9 +52,9 @@ class ParticipantFacadeImpl(
     override fun firstcome(key: String) {
         val group: Group = groupService.getById(key)
 
-        val queue = redisGroupRepository.getQueue(key)
+        val queue = redisGroupService.getQueue(key)
         for (memberId in queue!!) {
-            val personnel = redisGroupRepository.getByKey(key)
+            val personnel = redisGroupService.getByKey(key)
             if (personnel <= 0) {
                 throw ExceededPersonnelException()
             }
@@ -67,8 +67,8 @@ class ParticipantFacadeImpl(
                 isAccepted = true,
                 message = ""
             )
-            redisGroupRepository.deleteQueue(key, memberId.toString())
-            redisGroupRepository.set(key, personnel - 1)
+            redisGroupService.deleteQueue(key, memberId.toString())
+            redisGroupService.set(key, personnel - 1)
         }
     }
 

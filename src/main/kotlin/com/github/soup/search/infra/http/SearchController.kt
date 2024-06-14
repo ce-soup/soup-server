@@ -1,6 +1,6 @@
 package com.github.soup.search.infra.http
 
-import com.github.soup.search.application.facade.SearchFacadeImpl
+import com.github.soup.search.application.facade.SearchFacade
 import com.github.soup.search.infra.http.request.SearchType
 import com.github.soup.search.infra.http.response.SearchResponse
 import org.springframework.http.ResponseEntity
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/search")
 class SearchController(
-    private val searchFacade: SearchFacadeImpl
+    private val searchFacade: SearchFacade
 ) {
     @GetMapping("/{type}")
     fun search(

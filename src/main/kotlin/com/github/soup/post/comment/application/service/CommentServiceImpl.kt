@@ -2,7 +2,7 @@ package com.github.soup.post.comment.application.service
 
 import com.github.soup.post.comment.domain.Comment
 import com.github.soup.post.comment.exception.NotFoundCommentException
-import com.github.soup.post.comment.infra.persistence.CommentRepositoryImpl
+import com.github.soup.post.comment.infra.persistence.CommentRepository
 import com.github.soup.post.domain.Post
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class CommentServiceImpl(
-    private val commentRepository: CommentRepositoryImpl
+    private val commentRepository: CommentRepository
 ) : CommentService {
 
     @Transactional

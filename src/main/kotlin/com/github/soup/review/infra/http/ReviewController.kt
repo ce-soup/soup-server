@@ -1,6 +1,6 @@
 package com.github.soup.review.infra.http
 
-import com.github.soup.review.application.facade.ReviewFacadeImpl
+import com.github.soup.review.application.facade.ReviewFacade
 import com.github.soup.review.infra.http.request.CreateReviewRequest
 import com.github.soup.review.infra.http.request.UpdateReviewRequest
 import com.github.soup.review.infra.http.response.ReviewResponse
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/review")
 class ReviewController(
-    private val reviewFacade: ReviewFacadeImpl
+    private val reviewFacade: ReviewFacade
 ) {
 
     @PostMapping("/new")

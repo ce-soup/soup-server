@@ -1,10 +1,10 @@
 package com.github.soup.scrap.application.facade
 
-import com.github.soup.group.application.service.GroupServiceImpl
+import com.github.soup.group.application.service.GroupService
 import com.github.soup.group.domain.Group
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
-import com.github.soup.scrap.application.service.ScrapServiceImpl
+import com.github.soup.scrap.application.service.ScrapService
 import com.github.soup.scrap.domain.Scrap
 import com.github.soup.scrap.exception.NotFoundScrapAuthorityException
 import com.github.soup.scrap.infra.http.request.CreateScrapRequest
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional(readOnly = true)
 class ScrapFacadeImpl(
-    private val scrapService: ScrapServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val groupService: GroupServiceImpl
+    private val scrapService: ScrapService,
+    private val memberService: MemberService,
+    private val groupService: GroupService
 ) : ScrapFacade {
 
     @Transactional

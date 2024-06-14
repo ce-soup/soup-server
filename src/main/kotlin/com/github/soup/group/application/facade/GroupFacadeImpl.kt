@@ -1,9 +1,9 @@
 package com.github.soup.group.application.facade
 
-import com.github.soup.file.application.facade.FileFacadeImpl
+import com.github.soup.file.application.facade.FileFacade
 import com.github.soup.file.domain.File
 import com.github.soup.file.domain.FileType
-import com.github.soup.group.application.service.GroupServiceImpl
+import com.github.soup.group.application.service.GroupService
 import com.github.soup.group.domain.Group
 import com.github.soup.group.domain.GroupStatusEnum
 import com.github.soup.group.exception.NotFoundManagerAuthorityException
@@ -11,22 +11,22 @@ import com.github.soup.group.infra.http.request.CreateGroupRequest
 import com.github.soup.group.infra.http.request.ListGroupRequest
 import com.github.soup.group.infra.http.request.UpdateGroupRequest
 import com.github.soup.group.infra.http.response.GroupResponse
-import com.github.soup.group.participant.application.service.ParticipantServiceImpl
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.group.participant.application.service.ParticipantService
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
 import com.github.soup.member.infra.http.response.MemberResponse
-import com.github.soup.redis.group.RedisGroupRepository
+import com.github.soup.redis.group.RedisGroupService
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
 @Transactional(readOnly = true)
 class GroupFacadeImpl(
-    private val groupService: GroupServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val fileFacade: FileFacadeImpl,
-    private val participantService: ParticipantServiceImpl,
-    private val redisGroupRepository: RedisGroupRepository,
+    private val groupService: GroupService,
+    private val memberService: MemberService,
+    private val fileFacade: FileFacade,
+    private val participantService: ParticipantService,
+    private val redisGroupService: RedisGroupService,
 ) : GroupFacade {
 
     @Transactional
@@ -42,7 +42,7 @@ class GroupFacadeImpl(
 
         participantService.save(group = group, member = manager, isAccepted = true, message = "")
 
-        redisGroupRepository.set(group.id!!, group.personnel - 1)
+        redisGroupService.set(group.id!!, group.personnel - 1)
         return group.toResponse()
     }
 

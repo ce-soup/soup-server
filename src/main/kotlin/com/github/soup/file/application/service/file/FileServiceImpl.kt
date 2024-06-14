@@ -1,9 +1,9 @@
 package com.github.soup.file.application.service.file
 
 import com.github.soup.file.domain.File
+import com.github.soup.file.domain.FileRepository
 import com.github.soup.file.domain.FileType
 import com.github.soup.file.exception.NotSupportedFileFormatException
-import com.github.soup.file.infra.persistence.FileRepositoryImpl
 import com.github.soup.member.domain.Member
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +12,7 @@ import java.util.*
 
 @Service
 class FileServiceImpl(
-    private val fileRepository: FileRepositoryImpl,
+    private val fileRepository: FileRepository,
 ) : FileService {
 
     private val FILE_TYPE: List<String> = listOf(

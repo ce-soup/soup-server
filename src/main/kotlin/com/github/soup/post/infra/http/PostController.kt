@@ -1,6 +1,6 @@
 package com.github.soup.post.infra.http
 
-import com.github.soup.post.appllication.facade.PostFacadeImpl
+import com.github.soup.post.appllication.facade.PostFacade
 import com.github.soup.post.domain.PostTypeEnum
 import com.github.soup.post.infra.http.request.CreatePostRequest
 import com.github.soup.post.infra.http.request.UpdatePostRequest
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/post")
 class PostController(
-    private val postFacade: PostFacadeImpl
+    private val postFacade: PostFacade
 ) {
     @Operation(summary = "게시글 생성")
     @PostMapping("/new")

@@ -1,6 +1,6 @@
 package com.github.soup.scrap.infra.http
 
-import com.github.soup.scrap.application.facade.ScrapFacadeImpl
+import com.github.soup.scrap.application.facade.ScrapFacade
 import com.github.soup.scrap.infra.http.request.CreateScrapRequest
 import com.github.soup.scrap.infra.http.response.ScrapResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/scrap")
 class ScrapController(
-    private val scrapFacade: ScrapFacadeImpl
+    private val scrapFacade: ScrapFacade
 ) {
 
     @Operation(summary = "스크랩하기")

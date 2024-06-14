@@ -1,6 +1,6 @@
 package com.github.soup.auth.infra.filter
 
-import com.github.soup.auth.application.token.TokenServiceImpl
+import com.github.soup.auth.application.token.TokenService
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -11,7 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
 class AuthFilter(
-    private val tokenService: TokenServiceImpl
+    private val tokenService: TokenService
 ) : OncePerRequestFilter() {
     override fun doFilterInternal(
         request: HttpServletRequest,

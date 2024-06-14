@@ -1,6 +1,6 @@
 package com.github.soup.follow.infra.http
 
-import com.github.soup.follow.application.facade.FollowFacadeImpl
+import com.github.soup.follow.application.facade.FollowFacade
 import com.github.soup.follow.infra.http.response.FollowResponse
 import com.github.soup.member.infra.http.response.MemberResponse
 import io.swagger.v3.oas.annotations.Operation
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/follow")
 class FollowController(
-    private val followFacade: FollowFacadeImpl
+    private val followFacade: FollowFacade
 ) {
 
     @PostMapping("/new/{targetId}")

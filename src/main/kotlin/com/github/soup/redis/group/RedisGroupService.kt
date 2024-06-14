@@ -1,6 +1,6 @@
 package com.github.soup.redis.group
 
-interface RedisGroupRepository {
+interface RedisGroupService {
     fun getByKey(key: String): Int
 
     fun set(key: String, personnel: Int)

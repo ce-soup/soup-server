@@ -1,6 +1,6 @@
 package com.github.soup.group.participant.infra.http
 
-import com.github.soup.group.participant.application.facade.ParticipantFacadeImpl
+import com.github.soup.group.participant.application.facade.ParticipantFacade
 import com.github.soup.group.participant.infra.http.request.AcceptParticipantRequest
 import com.github.soup.group.participant.infra.http.request.CreateParticipantRequest
 import com.github.soup.group.participant.infra.http.response.ParticipantResponse
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/participant")
 class ParticipantController(
-    private val participantFacade: ParticipantFacadeImpl,
+    private val participantFacade: ParticipantFacade,
     private val redisTemplate: RedisTemplate<Any, Any>,
 ) {
 

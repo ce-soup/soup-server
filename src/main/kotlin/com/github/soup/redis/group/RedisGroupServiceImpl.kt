@@ -11,10 +11,10 @@ import java.util.concurrent.TimeUnit
 
 
 @Repository
-class RedisGroupRepositoryImpl(
+class RedisGroupServiceImpl(
     private val redisTemplate: RedisTemplate<Any, Any>,
     private val redissonClient: RedissonClient
-) : RedisGroupRepository {
+) : RedisGroupService {
 
     private final val log: Logger = logger<StorageServiceImpl>()
 

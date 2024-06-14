@@ -1,16 +1,16 @@
 package com.github.soup.post.appllication.facade
 
-import com.github.soup.file.application.facade.FileFacadeImpl
+import com.github.soup.file.application.facade.FileFacade
 import com.github.soup.file.domain.FileType
-import com.github.soup.group.application.service.GroupServiceImpl
+import com.github.soup.group.application.service.GroupService
 import com.github.soup.group.domain.Group
-import com.github.soup.group.participant.application.service.ParticipantServiceImpl
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.group.participant.application.service.ParticipantService
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
-import com.github.soup.post.appllication.service.PostServiceImpl
-import com.github.soup.post.attachment.application.service.PostAttachmentServiceImpl
+import com.github.soup.post.appllication.service.PostService
+import com.github.soup.post.attachment.application.service.PostAttachmentService
 import com.github.soup.post.attachment.domain.PostAttachment
-import com.github.soup.post.comment.application.service.CommentServiceImpl
+import com.github.soup.post.comment.application.service.CommentService
 import com.github.soup.post.domain.Post
 import com.github.soup.post.domain.PostTypeEnum
 import com.github.soup.post.exception.NotFoundPostAuthorityException
@@ -23,13 +23,13 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional(readOnly = true)
 class PostFacadeImpl(
-    private val postService: PostServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val groupService: GroupServiceImpl,
-    private val participantService: ParticipantServiceImpl,
-    private val commentService: CommentServiceImpl,
-    private val fileFacade: FileFacadeImpl,
-    private val attachmentService: PostAttachmentServiceImpl
+    private val postService: PostService,
+    private val memberService: MemberService,
+    private val groupService: GroupService,
+    private val participantService: ParticipantService,
+    private val commentService: CommentService,
+    private val fileFacade: FileFacade,
+    private val attachmentService: PostAttachmentService
 ) : PostFacade {
 
     @Transactional

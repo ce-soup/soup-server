@@ -1,6 +1,6 @@
 package com.github.soup.group.infra.http
 
-import com.github.soup.group.application.facade.GroupFacadeImpl
+import com.github.soup.group.application.facade.GroupFacade
 import com.github.soup.group.domain.GroupStatusEnum
 import com.github.soup.group.domain.GroupTypeEnum
 import com.github.soup.group.infra.http.request.CreateGroupRequest
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/group")
 class GroupController(
-    private val groupFacade: GroupFacadeImpl
+    private val groupFacade: GroupFacade
 ) {
     @Operation(summary = "그룹 생성")
     @PostMapping("/new")

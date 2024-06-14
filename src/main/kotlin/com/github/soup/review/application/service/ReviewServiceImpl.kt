@@ -2,7 +2,7 @@ package com.github.soup.review.application.service
 
 import com.github.soup.review.domain.Review
 import com.github.soup.review.exception.NotFoundReviewException
-import com.github.soup.review.infra.persistence.ReviewRepositoryImpl
+import com.github.soup.review.infra.persistence.ReviewRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class ReviewServiceImpl(
-    private val reviewRepository: ReviewRepositoryImpl
+    private val reviewRepository: ReviewRepository
 ) : ReviewService {
 
     @Transactional
@@ -28,7 +28,7 @@ class ReviewServiceImpl(
         return reviewRepository.getByToId(toId, pageable)
     }
 
-    override fun getByFromIdAndToIdAndGroupId(fromId: String, toId: String, groupId: String):Review?{
+    override fun getByFromIdAndToIdAndGroupId(fromId: String, toId: String, groupId: String): Review? {
         return reviewRepository.getByFromIdAndToIdAndGroupId(fromId, toId, groupId)
     }
 

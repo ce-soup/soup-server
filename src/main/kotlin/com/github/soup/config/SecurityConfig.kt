@@ -1,6 +1,6 @@
 package com.github.soup.config
 
-import com.github.soup.auth.application.token.TokenServiceImpl
+import com.github.soup.auth.application.token.TokenService
 import com.github.soup.auth.infra.filter.JwtAccessDeniedHandler
 import com.github.soup.auth.infra.filter.JwtAuthenticationEntryPoint
 import org.springframework.context.annotation.Bean
@@ -15,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val tokenService: TokenServiceImpl,
+    private val tokenService: TokenService,
     private val jwtAccessDeniedHandler: JwtAccessDeniedHandler,
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
 ) {

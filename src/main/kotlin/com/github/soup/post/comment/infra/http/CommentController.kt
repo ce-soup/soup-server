@@ -1,6 +1,6 @@
 package com.github.soup.post.comment.infra.http
 
-import com.github.soup.post.comment.application.facade.CommentFacadeImpl
+import com.github.soup.post.comment.application.facade.CommentFacade
 import com.github.soup.post.comment.infra.http.request.CreateCommentRequest
 import com.github.soup.post.comment.infra.http.response.CommentResponse
 import io.swagger.v3.oas.annotations.Parameter
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/comment")
 class CommentController(
-    private val commentFacade: CommentFacadeImpl
+    private val commentFacade: CommentFacade
 ) {
 
     @PostMapping("/new")

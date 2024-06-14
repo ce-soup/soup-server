@@ -1,10 +1,10 @@
 package com.github.soup.review.application.facade
 
-import com.github.soup.group.application.service.GroupServiceImpl
+import com.github.soup.group.application.service.GroupService
 import com.github.soup.group.domain.Group
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
-import com.github.soup.review.application.service.ReviewServiceImpl
+import com.github.soup.review.application.service.ReviewService
 import com.github.soup.review.domain.Review
 import com.github.soup.review.exception.NotWriterException
 import com.github.soup.review.exception.ReviewDontSeeSelfException
@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional(readOnly = true)
 class ReviewFacadeImpl(
-    private val reviewService: ReviewServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val groupService: GroupServiceImpl
+    private val reviewService: ReviewService,
+    private val memberService: MemberService,
+    private val groupService: GroupService
 ) : ReviewFacade {
 
     @Transactional
@@ -74,7 +74,7 @@ class ReviewFacadeImpl(
     }
 
     override fun check(memberId: String, groupId: String, toId: String): Boolean {
-        return reviewService.getByFromIdAndToIdAndGroupId(memberId, toId, groupId)!=null
+        return reviewService.getByFromIdAndToIdAndGroupId(memberId, toId, groupId) != null
     }
 
     @Transactional

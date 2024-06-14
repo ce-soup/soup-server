@@ -1,6 +1,6 @@
 package com.github.soup.file.infra.http
 
-import com.github.soup.file.application.facade.FileFacadeImpl
+import com.github.soup.file.application.facade.FileFacade
 import com.github.soup.file.domain.FileType
 import com.github.soup.file.infra.http.response.FileResponse
 import io.swagger.v3.oas.annotations.Parameter
@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/api/file")
 class FileController(
-    private val fileFacade: FileFacadeImpl
+    private val fileFacade: FileFacade
 ) {
 
     @PostMapping("/upload")

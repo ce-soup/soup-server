@@ -1,9 +1,9 @@
 package com.github.soup.post.comment.application.facade
 
-import com.github.soup.member.application.service.MemberServiceImpl
+import com.github.soup.member.application.service.MemberService
 import com.github.soup.member.domain.Member
-import com.github.soup.post.appllication.service.PostServiceImpl
-import com.github.soup.post.comment.application.service.CommentServiceImpl
+import com.github.soup.post.appllication.service.PostService
+import com.github.soup.post.comment.application.service.CommentService
 import com.github.soup.post.comment.domain.Comment
 import com.github.soup.post.comment.exception.NotFoundCommentAuthorityException
 import com.github.soup.post.comment.infra.http.request.CreateCommentRequest
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 @Transactional(readOnly = true)
 class CommentFacadeImpl(
-    private val commentService: CommentServiceImpl,
-    private val memberService: MemberServiceImpl,
-    private val postService: PostServiceImpl
+    private val commentService: CommentService,
+    private val memberService: MemberService,
+    private val postService: PostService
 ) : CommentFacade {
 
     @Transactional

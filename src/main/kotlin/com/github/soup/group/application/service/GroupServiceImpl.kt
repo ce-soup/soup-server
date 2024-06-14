@@ -1,10 +1,10 @@
 package com.github.soup.group.application.service
 
 import com.github.soup.group.domain.Group
+import com.github.soup.group.domain.GroupRepository
 import com.github.soup.group.domain.GroupStatusEnum
 import com.github.soup.group.exception.NotFoundGroupException
 import com.github.soup.group.infra.http.request.ListGroupRequest
-import com.github.soup.group.infra.persistence.GroupRepositoryImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class GroupServiceImpl(
-    private val groupRepository: GroupRepositoryImpl
+    private val groupRepository: GroupRepository
 ) : GroupService {
 
     @Transactional

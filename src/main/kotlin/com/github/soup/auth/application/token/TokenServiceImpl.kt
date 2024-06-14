@@ -3,7 +3,7 @@ package com.github.soup.auth.application.token
 import com.github.soup.auth.domain.auth.Auth
 import com.github.soup.auth.domain.token.Token
 import com.github.soup.auth.exceptions.NotFoundRoleException
-import com.github.soup.redis.token.RedisTokenRepositoryImpl
+import com.github.soup.redis.token.RedisTokenRepository
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -31,7 +31,7 @@ class TokenServiceImpl(
     @Value("\${jwt.expired.refresh}")
     private val refreshExpired: String,
 
-    private val tokenRepository: RedisTokenRepositoryImpl
+    private val tokenRepository: RedisTokenRepository
 ) : TokenService {
     private val key: Key
     private val accessTokenExpiredDate: Long

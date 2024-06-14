@@ -4,7 +4,7 @@ import com.github.soup.group.domain.Group
 import com.github.soup.post.domain.Post
 import com.github.soup.post.domain.PostTypeEnum
 import com.github.soup.post.exception.NotFoundPostException
-import com.github.soup.post.infra.persistence.PostRepositoryImpl
+import com.github.soup.post.infra.persistence.PostRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class PostServiceImpl(
-    private val postRepository: PostRepositoryImpl
+    private val postRepository: PostRepository
 ) : PostService {
 
     @Transactional
