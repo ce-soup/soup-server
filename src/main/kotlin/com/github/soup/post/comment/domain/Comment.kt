@@ -4,8 +4,8 @@ import com.github.soup.common.domain.Core
 import com.github.soup.member.domain.Member
 import com.github.soup.post.comment.infra.http.response.CommentResponse
 import com.github.soup.post.domain.Post
+import jakarta.persistence.*
 import org.hibernate.annotations.BatchSize
-import javax.persistence.*
 
 @Entity
 class Comment(

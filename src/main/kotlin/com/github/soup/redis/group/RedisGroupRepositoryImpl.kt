@@ -2,12 +2,12 @@ package com.github.soup.redis.group
 
 import com.github.soup.config.logger
 import com.github.soup.file.application.service.storage.StorageServiceImpl
+import jakarta.persistence.LockTimeoutException
 import org.redisson.api.RedissonClient
 import org.slf4j.Logger
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.util.concurrent.TimeUnit
-import javax.persistence.LockTimeoutException
 
 
 @Repository

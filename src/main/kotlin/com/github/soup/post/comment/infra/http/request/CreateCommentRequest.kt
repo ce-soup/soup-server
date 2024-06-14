@@ -1,6 +1,6 @@
 package com.github.soup.post.comment.infra.http.request
 
-import javax.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotEmpty
 
 data class CreateCommentRequest(
     @NotEmpty
@@ -10,5 +10,4 @@ data class CreateCommentRequest(
 
     @NotEmpty
     val content: String
-
 )

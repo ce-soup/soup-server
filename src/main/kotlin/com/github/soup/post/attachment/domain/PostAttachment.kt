@@ -3,7 +3,7 @@ package com.github.soup.post.attachment.domain
 import com.github.soup.common.domain.Core
 import com.github.soup.file.domain.File
 import com.github.soup.post.domain.Post
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class PostAttachment(

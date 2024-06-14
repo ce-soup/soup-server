@@ -3,9 +3,9 @@ package com.github.soup.follow.domain
 import com.github.soup.common.domain.Core
 import com.github.soup.follow.infra.http.response.FollowResponse
 import com.github.soup.member.domain.Member
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import jakarta.persistence.Entity
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 
 @Entity
 class Follow(

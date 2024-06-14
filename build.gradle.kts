@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
+    id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
@@ -24,12 +24,12 @@ repositories {
 }
 
 allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
 }
 
 noArg {
-    annotation("javax.persistence.Entity")
+    annotation("jakarta.persistence.Entity")
 }
 
 dependencies {
@@ -37,7 +37,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // swagger
-    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
     // security
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -51,7 +51,7 @@ dependencies {
     // data
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
-    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("mysql:mysql-connector-java:8.0.29")
     implementation("io.minio:minio:8.2.1")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("it.ozimov:embedded-redis:0.7.3") {
@@ -60,8 +60,8 @@ dependencies {
     implementation("org.redisson:redisson-spring-boot-starter:3.24.3")
 
     // querydsl
-    implementation("com.querydsl:querydsl-jpa:$querydslVersion")
-    kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
+    implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
+    kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     // test

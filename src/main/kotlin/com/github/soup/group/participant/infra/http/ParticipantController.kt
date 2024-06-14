@@ -4,15 +4,15 @@ import com.github.soup.group.participant.application.facade.ParticipantFacadeImp
 import com.github.soup.group.participant.infra.http.request.AcceptParticipantRequest
 import com.github.soup.group.participant.infra.http.request.CreateParticipantRequest
 import com.github.soup.group.participant.infra.http.response.ParticipantResponse
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import jakarta.validation.Valid
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.ScanOptions
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/participant")
@@ -31,10 +31,10 @@ class ParticipantController(
             }
     }
 
-    @ApiOperation(value = "참여 신청")
+    @Operation(summary = "참여 신청")
     @PostMapping("/new")
     fun createParticipant(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @RequestBody @Valid request: CreateParticipantRequest
     ): ResponseEntity<Boolean> =
         ResponseEntity.ok().body(
@@ -44,10 +44,10 @@ class ParticipantController(
             )
         )
 
-    @ApiOperation(value = "참여 신청 목록")
+    @Operation(summary = "참여 신청 목록")
     @GetMapping("/{groupId}")
     fun participantList(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
     ): ResponseEntity<List<ParticipantResponse>> =
         ResponseEntity.ok().body(
@@ -57,10 +57,10 @@ class ParticipantController(
             )
         )
 
-    @ApiOperation(value = "참여 신청 수락")
+    @Operation(summary = "참여 신청 수락")
     @PatchMapping("/{groupId}/accept")
     fun accept(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
         @RequestBody @Valid request: AcceptParticipantRequest
     ): ResponseEntity<Boolean> =
@@ -72,10 +72,10 @@ class ParticipantController(
             )
         )
 
-    @ApiOperation(value = "참여 신청 여부 확인")
+    @Operation(summary = "참여 신청 여부 확인")
     @GetMapping("/check/{groupId}/register")
     fun checkRegister(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String
     ): ResponseEntity<Boolean> =
         ResponseEntity.ok().body(
@@ -85,10 +85,10 @@ class ParticipantController(
             )
         )
 
-    @ApiOperation(value = "참여 수락 여부 확인")
+    @Operation(summary = "참여 수락 여부 확인")
     @GetMapping("/check/{groupId}/participant")
     fun checkParticipant(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String
     ): ResponseEntity<Boolean> =
         ResponseEntity.ok().body(

@@ -4,10 +4,10 @@ import com.github.soup.common.domain.Core
 import com.github.soup.group.domain.Group
 import com.github.soup.member.domain.Member
 import com.github.soup.scrap.infra.http.response.ScrapResponse
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 
 @Entity
 class Scrap(

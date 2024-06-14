@@ -4,11 +4,11 @@ import com.github.soup.review.application.facade.ReviewFacadeImpl
 import com.github.soup.review.infra.http.request.CreateReviewRequest
 import com.github.soup.review.infra.http.request.UpdateReviewRequest
 import com.github.soup.review.infra.http.response.ReviewResponse
+import io.swagger.v3.oas.annotations.Parameter
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/review")
@@ -18,7 +18,7 @@ class ReviewController(
 
     @PostMapping("/new")
     fun createReview(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @RequestBody @Valid request: CreateReviewRequest
     ): ResponseEntity<ReviewResponse> =
         ResponseEntity.ok().body(
@@ -30,7 +30,7 @@ class ReviewController(
 
     @PatchMapping("/{reviewId}")
     fun updateReview(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("reviewId") reviewId: String,
         @RequestBody @Valid request: UpdateReviewRequest
     ): ResponseEntity<ReviewResponse> =
@@ -44,7 +44,7 @@ class ReviewController(
 
     @GetMapping("/list/{toId}")
     fun getList(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("toId") toId: String,
         @RequestParam(value = "page", required = false, defaultValue = "1") page: Int,
     ): ResponseEntity<List<ReviewResponse>> =
@@ -58,7 +58,7 @@ class ReviewController(
 
     @GetMapping("/{reviewId}")
     fun get(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("reviewId") reviewId: String
     ): ResponseEntity<ReviewResponse> =
         ResponseEntity.ok().body(
@@ -70,7 +70,7 @@ class ReviewController(
 
     @GetMapping("/check/{groupId}/{toId}")
     fun check(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
         @PathVariable("toId") toId: String
     ): ResponseEntity<Boolean> =
@@ -84,7 +84,7 @@ class ReviewController(
 
     @DeleteMapping("/{reviewId}")
     fun deleteScrap(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("reviewId") reviewId: String
     ): ResponseEntity<Boolean> =
         ResponseEntity.ok().body(

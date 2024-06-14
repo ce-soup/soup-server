@@ -1,53 +1,36 @@
 package com.github.soup.config
 
+import io.swagger.v3.oas.models.Components
+import io.swagger.v3.oas.models.OpenAPI
+import io.swagger.v3.oas.models.info.Info
+import io.swagger.v3.oas.models.security.SecurityRequirement
+import io.swagger.v3.oas.models.security.SecurityScheme
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import springfox.documentation.builders.ApiInfoBuilder
-import springfox.documentation.builders.PathSelectors
-import springfox.documentation.builders.RequestHandlerSelectors
-import springfox.documentation.service.ApiInfo
-import springfox.documentation.service.ApiKey
-import springfox.documentation.service.AuthorizationScope
-import springfox.documentation.service.SecurityReference
-import springfox.documentation.spi.DocumentationType
-import springfox.documentation.spi.service.contexts.SecurityContext
-import springfox.documentation.spring.web.plugins.Docket
 
 @Configuration
 class SwaggerConfig {
-	@Bean
-	fun docket(): Docket {
-		return Docket(DocumentationType.OAS_30)
-			.useDefaultResponseMessages(false)
-			.apiInfo(apiInfo())
-			.select()
-			.apis(RequestHandlerSelectors.basePackage("com.github.soup"))
-			.paths(PathSelectors.any())
-			.build()
-			.securityContexts(listOf(securityContexts()))
-			.securitySchemes(listOf(apiKey()))
-	}
+    private val AUTH_TOKEN_HEADER = "Authorization"
 
-	private fun apiInfo(): ApiInfo {
-		return ApiInfoBuilder()
-			.title("soup service server")
-			.version("1.0")
-			.description("soup service server api documents")
-			.build()
-	}
+    @Bean
+    fun openAPI(): OpenAPI {
+        return OpenAPI()
+            .info(apiInfo())
+            .addSecurityItem(SecurityRequirement().addList(AUTH_TOKEN_HEADER))
+            .components(Components().addSecuritySchemes("Authorization", bearerAuth))
+    }
 
-	private fun securityContexts() = SecurityContext
-		.builder()
-		.securityReferences(defaultAuth())
-		.build()
+    private fun apiInfo(): Info {
+        return Info()
+            .title("soup service server")
+            .version("1.0")
+            .description("soup service server api documents")
+    }
 
-	private fun apiKey() = ApiKey("Authorization", "Authorization", "header")
-
-	private fun defaultAuth(): List<SecurityReference> {
-		val authorizationScope = AuthorizationScope("global", "accessEverything")
-		val authorizationScopes: Array<AuthorizationScope?> = arrayOfNulls(1)
-		authorizationScopes[0] = authorizationScope
-		return listOf(SecurityReference("Authorization", authorizationScopes))
-
-	}
+    var bearerAuth = SecurityScheme()
+        .type(SecurityScheme.Type.HTTP)
+        .scheme("bearer")
+        .bearerFormat("Authorization")
+        .`in`(SecurityScheme.In.HEADER)
+        .name(AUTH_TOKEN_HEADER)
 }

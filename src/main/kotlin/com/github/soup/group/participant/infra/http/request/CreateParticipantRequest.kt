@@ -1,6 +1,6 @@
 package com.github.soup.group.participant.infra.http.request
 
-import javax.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotEmpty
 
 data class CreateParticipantRequest(
 

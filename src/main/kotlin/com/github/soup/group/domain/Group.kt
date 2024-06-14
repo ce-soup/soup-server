@@ -5,10 +5,10 @@ import com.github.soup.file.domain.File
 import com.github.soup.group.infra.http.request.UpdateGroupRequest
 import com.github.soup.group.infra.http.response.GroupResponse
 import com.github.soup.member.domain.Member
+import jakarta.persistence.*
 import kr.soupio.soup.group.entities.GroupRecruitmentEnum
 import org.hibernate.annotations.ColumnDefault
 import java.time.LocalDate
-import javax.persistence.*
 
 @Entity
 @Table(name = "`group`")

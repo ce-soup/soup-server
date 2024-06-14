@@ -1,9 +1,9 @@
 package com.github.soup.post.infra.http.request
 
 import com.github.soup.post.domain.PostTypeEnum
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import org.springframework.web.multipart.MultipartFile
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
 data class CreatePostRequest(
     @NotEmpty

@@ -3,7 +3,7 @@ package com.github.soup.group.participant.domain
 import com.github.soup.common.domain.Core
 import com.github.soup.group.domain.Group
 import com.github.soup.member.domain.Member
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Participant(

@@ -8,22 +8,22 @@ import com.github.soup.group.infra.http.request.ListGroupRequest
 import com.github.soup.group.infra.http.request.UpdateGroupRequest
 import com.github.soup.group.infra.http.response.GroupResponse
 import com.github.soup.member.infra.http.response.MemberResponse
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/group")
 class GroupController(
     private val groupFacade: GroupFacadeImpl
 ) {
-    @ApiOperation(value = "그룹 생성")
+    @Operation(summary = "그룹 생성")
     @PostMapping("/new")
     fun creatGroup(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @Valid request: CreateGroupRequest
     ): ResponseEntity<GroupResponse> =
         ResponseEntity.ok().body(
@@ -33,10 +33,10 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "그룹 조회")
+    @Operation(summary = "그룹 조회")
     @GetMapping("/{groupId}")
     fun getGroup(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
     ): ResponseEntity<GroupResponse> =
         ResponseEntity.ok().body(
@@ -46,10 +46,10 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "그룹 수정")
+    @Operation(summary = "그룹 수정")
     @PutMapping("/{groupId}")
     fun updateGroup(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
         @Valid request: UpdateGroupRequest
     ): ResponseEntity<GroupResponse> =
@@ -61,10 +61,10 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "그룹 상태 시작")
+    @Operation(summary = "그룹 상태 시작")
     @PatchMapping("/{groupId}/start")
     fun startGroup(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
     ): ResponseEntity<GroupResponse> =
         ResponseEntity.ok().body(
@@ -74,10 +74,10 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "그룹 상태 종료")
+    @Operation(summary = "그룹 상태 종료")
     @PatchMapping("/{groupId}/finish")
     fun finishGroup(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String,
     ): ResponseEntity<GroupResponse> =
         ResponseEntity.ok().body(
@@ -87,7 +87,7 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "모든 그룹 목록")
+    @Operation(summary = "모든 그룹 목록")
     @GetMapping("/list/{type}")
     fun allGroup(
         @PathVariable("type") type: GroupTypeEnum,
@@ -103,7 +103,7 @@ class GroupController(
             )
         )
 
-    @ApiOperation(value = "참여 그룹 목록")
+    @Operation(summary = "참여 그룹 목록")
     @GetMapping("/{memberId}/list/join")
     fun joinList(
         @PathVariable("memberId") memberId: String,
@@ -119,10 +119,10 @@ class GroupController(
         )
     }
 
-    @ApiOperation(value = "참여자 목록")
+    @Operation(summary = "참여자 목록")
     @GetMapping("/{groupId}/members")
     fun members(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("groupId") groupId: String
     ): ResponseEntity<List<MemberResponse>> {
         return ResponseEntity.ok().body(
@@ -133,12 +133,12 @@ class GroupController(
         )
     }
 
-    @ApiOperation(value = "인기 그룹 목록")
+    @Operation(summary = "인기 그룹 목록")
     @GetMapping("/popularity")
     fun popularity(): ResponseEntity<List<GroupResponse>> = ResponseEntity.ok().body(groupFacade.popularity())
 
 
-    @ApiOperation(value = "참여 중인 인원 수 확인")
+    @Operation(summary = "참여 중인 인원 수 확인")
     @GetMapping("/{groupId}/count")
     fun getParticipantCount(
         @PathVariable("groupId") groupId: String

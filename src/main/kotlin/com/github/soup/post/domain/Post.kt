@@ -6,7 +6,7 @@ import com.github.soup.member.domain.Member
 import com.github.soup.post.attachment.domain.PostAttachment
 import com.github.soup.post.infra.http.request.UpdatePostRequest
 import com.github.soup.post.infra.http.response.PostResponse
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Post(

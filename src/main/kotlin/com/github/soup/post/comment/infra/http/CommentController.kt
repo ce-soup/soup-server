@@ -3,11 +3,11 @@ package com.github.soup.post.comment.infra.http
 import com.github.soup.post.comment.application.facade.CommentFacadeImpl
 import com.github.soup.post.comment.infra.http.request.CreateCommentRequest
 import com.github.soup.post.comment.infra.http.response.CommentResponse
+import io.swagger.v3.oas.annotations.Parameter
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/comment")
@@ -17,7 +17,7 @@ class CommentController(
 
     @PostMapping("/new")
     fun createComment(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @RequestBody @Valid request: CreateCommentRequest
     ): ResponseEntity<CommentResponse> =
         ResponseEntity.ok().body(
@@ -37,7 +37,7 @@ class CommentController(
 
     @DeleteMapping("/{commentId}")
     fun deleteComment(
-        @ApiIgnore authentication: Authentication,
+        @Parameter(hidden = true) authentication: Authentication,
         @PathVariable("commentId") commentId: String
     ): ResponseEntity<Boolean> =
         ResponseEntity.ok().body(

@@ -4,7 +4,7 @@ import com.github.soup.common.domain.Core
 import com.github.soup.group.domain.Group
 import com.github.soup.member.domain.Member
 import com.github.soup.review.infra.http.response.ReviewResponse
-import javax.persistence.*
+import jakarta.persistence.*
 
 @Entity
 class Review(
@@ -16,7 +16,7 @@ class Review(
     @JoinColumn(name = "to_id")
     var to: Member,
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     var group: Group,
 

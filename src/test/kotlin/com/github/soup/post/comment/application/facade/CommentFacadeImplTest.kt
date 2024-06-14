@@ -18,6 +18,7 @@ import com.github.soup.post.comment.infra.http.request.CreateCommentRequest
 import com.github.soup.post.comment.infra.http.response.CommentResponse
 import com.github.soup.post.domain.PostTypeEnum
 import com.github.soup.post.infra.http.request.CreatePostRequest
+import jakarta.persistence.EntityManager
 import kr.soupio.soup.group.entities.GroupRecruitmentEnum
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -28,7 +29,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
-import javax.persistence.EntityManager
 
 @SpringBootTest
 @Transactional

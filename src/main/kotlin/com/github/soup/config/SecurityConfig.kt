@@ -15,51 +15,51 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-	private val tokenService: TokenServiceImpl,
-	private val jwtAccessDeniedHandler: JwtAccessDeniedHandler,
-	private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
+    private val tokenService: TokenServiceImpl,
+    private val jwtAccessDeniedHandler: JwtAccessDeniedHandler,
+    private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
 ) {
-	@Bean
-	fun filterChain(http: HttpSecurity): SecurityFilterChain {
-		return http.csrf().disable()
+    @Bean
+    fun filterChain(http: HttpSecurity): SecurityFilterChain {
+        return http.csrf().disable()
 
-			.cors()
-			.configurationSource(corsConfigurationSource())
-			.and()
+            .cors()
+            .configurationSource(corsConfigurationSource())
+            .and()
 
-			.apply(JwtSecurityConfig(tokenService))
-			.and()
+            .apply(JwtSecurityConfig(tokenService))
+            .and()
 
-			.exceptionHandling()
-			.accessDeniedHandler(jwtAccessDeniedHandler)
-			.authenticationEntryPoint(jwtAuthenticationEntryPoint)
-			.and()
+            .exceptionHandling()
+            .accessDeniedHandler(jwtAccessDeniedHandler)
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .and()
 
-			.authorizeRequests()
-			.antMatchers("/").permitAll()
+            .authorizeHttpRequests()
+            .requestMatchers("/").permitAll()
 
-			.antMatchers("/swagger-ui/**").permitAll()
-			.antMatchers("/swagger-resources/**").permitAll()
-			.antMatchers("/v3/api-docs").permitAll()
+            .requestMatchers("/swagger-ui/**").permitAll()
+            .requestMatchers("/swagger-resources/**").permitAll()
+            .requestMatchers("/v3/api-docs/**").permitAll()
 
-			.antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/auth/reissue").authenticated()
-			.anyRequest().authenticated()
-			.and()
+            .requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/api/auth/reissue").authenticated()
+            .anyRequest().authenticated()
+            .and()
 
-			.build()
-	}
+            .build()
+    }
 
-	@Bean
-	fun corsConfigurationSource(): CorsConfigurationSource {
-		val configuration = CorsConfiguration()
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
 
-		configuration.addAllowedHeader("*")
-		configuration.addAllowedMethod("*")
+        configuration.addAllowedHeader("*")
+        configuration.addAllowedMethod("*")
 
-		val source = UrlBasedCorsConfigurationSource()
-		source.registerCorsConfiguration("/**", configuration)
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
 
-		return source
-	}
+        return source
+    }
 }
