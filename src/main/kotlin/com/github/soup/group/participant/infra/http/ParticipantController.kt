@@ -7,6 +7,7 @@ import com.github.soup.group.participant.infra.http.response.ParticipantResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import jakarta.validation.Valid
+import org.springframework.data.redis.core.Cursor
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.ScanOptions
 import org.springframework.http.ResponseEntity
@@ -24,11 +25,11 @@ class ParticipantController(
     @Scheduled(fixedDelay = 1000)
     fun joinScheduler() {
         val scanOptions: ScanOptions = ScanOptions.scanOptions().match("group:*").build()
-        redisTemplate.connectionFactory?.connection?.scan(scanOptions)
-            ?.forEach {
-                val key = it.toString().split(":")[1]
-                participantFacade.firstcome(key)
-            }
+        val keys: Cursor<ByteArray>? = redisTemplate.connectionFactory?.connection?.scan(scanOptions)
+        while (keys != null && keys.hasNext()) {
+            val key = keys.toString().split(":")[1]
+            participantFacade.firstcome(key)
+        }
     }
 
     @Operation(summary = "참여 신청")
