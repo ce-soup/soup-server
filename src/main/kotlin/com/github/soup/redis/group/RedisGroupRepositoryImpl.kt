@@ -2,33 +2,42 @@ package com.github.soup.redis.group
 
 import com.github.soup.config.logger
 import com.github.soup.file.application.service.storage.StorageServiceImpl
+import org.redisson.api.RedissonClient
 import org.slf4j.Logger
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
+import java.util.concurrent.TimeUnit
+import javax.persistence.LockTimeoutException
 
 
 @Repository
 class RedisGroupRepositoryImpl(
-    private val redisTemplate: RedisTemplate<Any, Any>
+    private val redisTemplate: RedisTemplate<Any, Any>,
+    private val redissonClient: RedissonClient
 ) : RedisGroupRepository {
 
     private final val log: Logger = logger<StorageServiceImpl>()
 
     // 매니저가 그룹 생성할 때 (key-value 형식의 NoSQL 사용)
     override fun getByKey(key: String): Int {
-        return redisTemplate.opsForValue().get(key) as Int
+        val lock = redissonClient.getLock(key)
+
+        try {
+            val acquireLock = lock.tryLock(1, 2, TimeUnit.SECONDS)
+            if (!acquireLock) {
+                println("Lock 획득 실패")
+                throw LockTimeoutException()
+            }
+            return redissonClient.getBucket<Int>(key).get()
+        } catch (_: InterruptedException) {
+        } finally {
+            lock.unlock()
+        }
+        return -1
     }
 
-    override fun save(key: String, personnel: Int) {
-        redisTemplate.opsForValue().set(key, personnel)
-    }
-
-    override fun decrease(key: String) {
-        redisTemplate.opsForValue().decrement(key)
-    }
-
-    override fun delete(key: String) {
-        redisTemplate.opsForValue().getAndDelete(key)
+    override fun set(key: String, personnel: Int) {
+        redissonClient.getBucket<Int>(key).set(personnel)
     }
 
     // 팀원이 합류 요청할 때 (key, value, score 형식의 ZSET 사용)

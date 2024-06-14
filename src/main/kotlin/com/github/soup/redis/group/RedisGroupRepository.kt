@@ -3,11 +3,7 @@ package com.github.soup.redis.group
 interface RedisGroupRepository {
     fun getByKey(key: String): Int
 
-    fun save(key: String, personnel: Int)
-
-    fun decrease(key: String)
-
-    fun delete(key: String)
+    fun set(key: String, personnel: Int)
 
     fun addQueue(key: String, memberId: String)
 

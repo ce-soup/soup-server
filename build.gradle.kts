@@ -57,6 +57,7 @@ dependencies {
     implementation("it.ozimov:embedded-redis:0.7.3") {
         exclude("org.slf4j", "slf4j-simple")
     }
+    implementation("org.redisson:redisson-spring-boot-starter:3.24.3")
 
     // querydsl
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")

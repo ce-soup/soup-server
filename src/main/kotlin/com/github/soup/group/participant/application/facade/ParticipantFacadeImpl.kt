@@ -54,7 +54,8 @@ class ParticipantFacadeImpl(
 
         val queue = redisGroupRepository.getQueue(key)
         for (memberId in queue!!) {
-            if (redisGroupRepository.getByKey(key) <= 0) {
+            val personnel = redisGroupRepository.getByKey(key)
+            if (personnel <= 0) {
                 throw ExceededPersonnelException()
             }
 
@@ -67,7 +68,7 @@ class ParticipantFacadeImpl(
                 message = ""
             )
             redisGroupRepository.deleteQueue(key, memberId.toString())
-            redisGroupRepository.decrease(key)
+            redisGroupRepository.set(key, personnel - 1)
         }
     }
 

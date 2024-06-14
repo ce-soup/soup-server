@@ -42,7 +42,7 @@ class GroupFacadeImpl(
 
         participantService.save(group = group, member = manager, isAccepted = true, message = "")
 
-        redisGroupRepository.save(group.id!!, group.personnel - 1)
+        redisGroupRepository.set(group.id!!, group.personnel - 1)
         return group.toResponse()
     }
 
